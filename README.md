@@ -4,6 +4,8 @@ This repo provides a Minimum Working Example to experiment with [`logzero`'s](ht
 
 `logzero` claims to provide 'Robust and effective logging' featuring 'Multiple loggers can write to the same logfile (also across multiple Python files)'.
 
+The `loguru` package is being experimented with on a [separate branch](https://github.com/pylipp/logzero-mp/tree/loguru). It overcomes the shortcomings experienced here.
+
 ### Experiment
 
 The main script sets up two processes. The first process logs at a very high rate, the second at a more moderate rate. Both processes log to the same file; and log-file rotation is set up using a very small maximum logfile size.
@@ -12,7 +14,7 @@ Since the first process logs very busily, it will rotate logs very often. Since 
 
 ### Dependencies
 
-Tested using Python 3.6.5.
+Tested using Python 3.6.5 on Ubuntu 16.04.
 
 ### Installation
 
