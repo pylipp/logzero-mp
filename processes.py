@@ -3,18 +3,6 @@ import time
 
 from loguru import logger
 
-# Uncomment to disable logging to stderr
-# logger.remove(None)
-
-
-LOGGER_CONFIG = dict(
-    sink="test.log",
-    rotation=120,  # to fit two log messages per file
-    retention=5,
-    enqueue=True,
-)
-
-logger.add(**LOGGER_CONFIG)
 
 class BusyLogProcess(multiprocessing.Process):
     """A process that logs as fast as it can."""
