@@ -1,23 +1,25 @@
 import multiprocessing
 import time
 
-import logzero
+from loguru import logger
+
+# Uncomment to disable logging to stderr
+# logger.remove(None)
 
 
 LOGGER_CONFIG = dict(
-    logfile="test.log",
-    maxBytes=72,  # to fit two log messages per file
-    backupCount=5,
+    sink="test.log",
+    rotation=120,  # to fit two log messages per file
+    retention=5,
+    enqueue=True,
 )
 
+logger.add(**LOGGER_CONFIG)
 
 class BusyLogProcess(multiprocessing.Process):
     """A process that logs as fast as it can."""
 
     def run(self):
-        logger = logzero.setup_logger("busy", disableStderrLogger=True,
-                                      **LOGGER_CONFIG)
-
         while True:
             logger.info("a")
 
@@ -26,9 +28,7 @@ class LazyLogProcess(multiprocessing.Process):
     """A process that logs at a specific rate."""
 
     def run(self):
-        logger = logzero.setup_logger("lazy", **LOGGER_CONFIG)
-
         for _ in range(1000):
-            logger.warn("b")
+            logger.warning("b")
             # Log at approx. 10 Hz
             time.sleep(0.1)
