@@ -20,6 +20,9 @@ LOGGER_CONFIG = dict(
 
 logger.add(**LOGGER_CONFIG)
 
+# Alternatively, configure logger. This removes existing handlers
+# logger.configure(handlers=[LOGGER_CONFIG])
+
 def main():
     for logfile in glob.glob("test*.log"):
         print(f"Removing {logfile}")
