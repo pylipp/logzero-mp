@@ -8,9 +8,10 @@ from processes import BusyLogProcess, LazyLogProcess
 
 
 LOGGER_CONFIG = dict(
-    sink="test.log",
-    rotation=120,  # to fit two log messages per file
-    retention=5,
+    sink="test_{time}.log",
+    # rotation=120,  # to fit two log messages per file
+    rotation="50 kB",
+    retention=2,
     enqueue=True,
 )
 
