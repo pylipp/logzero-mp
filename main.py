@@ -7,10 +7,6 @@ from loguru import logger
 from processes import BusyLogProcess, LazyLogProcess
 
 
-print(logger._handlers)
-# Uncomment to disable logging to stderr
-# logger.remove(None)
-
 LOGGER_CONFIG = dict(
     sink="test.log",
     rotation=120,  # to fit two log messages per file
@@ -18,15 +14,20 @@ LOGGER_CONFIG = dict(
     enqueue=True,
 )
 
-logger.add(**LOGGER_CONFIG)
-
-# Alternatively, configure logger. This removes existing handlers
-# logger.configure(handlers=[LOGGER_CONFIG])
-
 def main():
     for logfile in glob.glob("test*.log"):
         print(f"Removing {logfile}")
         os.unlink(logfile)
+
+    # Set up logger
+    print(logger._handlers)
+    # Uncomment to disable logging to stderr
+    logger.remove(None)
+
+    logger.add(**LOGGER_CONFIG)
+
+    # Alternatively, configure logger. This removes existing handlers
+    # logger.configure(handlers=[LOGGER_CONFIG])
 
     busy_log_process = BusyLogProcess()
     busy_log_process.start()
