@@ -16,6 +16,9 @@ LOGGER_CONFIG = dict(
 )
 
 def main():
+    print(f"This is {logger}")
+    print(id(logger))
+
     for logfile in glob.glob("test*.log"):
         print(f"Removing {logfile}")
         os.unlink(logfile)
@@ -26,6 +29,8 @@ def main():
     logger.remove(None)
 
     logger.add(**LOGGER_CONFIG)
+    print(f"Now it's {logger}")
+    print(id(logger))
 
     # Alternatively, configure logger. This removes existing handlers
     # logger.configure(handlers=[LOGGER_CONFIG])
